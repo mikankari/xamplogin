@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 $errmsg = "";
 
 if(isset($_POST["username"])){
@@ -8,6 +10,10 @@ if(isset($_POST["username"])){
 	
 	if($username == "useruser" && $password == "passpass"){
 		// 成功
+		
+		// セッションにログインしたことを残す
+		session_regenerate_id();
+		$_SESSION["username"] = $username;
 		
 		// ログイン後のページに移動する
 		header("Location: http://localhost/folder/mypage.php");
