@@ -8,7 +8,7 @@ $errmsg = "";
 
 if(isset($_POST["username"])){
 	$username = $_POST["username"];
-	$password = $_POST["password"];
+	$password = md5($_POST["password"]);
 	
 	$db = mysql_connect("localhost", "dbuseruser", "dbpasspass");
 	if(!$db){
