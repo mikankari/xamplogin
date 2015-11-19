@@ -8,12 +8,26 @@ if(isset($_POST["username"])){
 	$username = $_POST["username"];
 	$password = $_POST["password"];
 	
-	if($username == "useruser" && $password == "passpass"){
+	$db = mysql_connect("localhost", "dbuseruser", "dbpasspass");
+	if(!$db){
+		exit("MySQLサーバに接続できなかった");
+	}
+	if(!mysql_select_db("dbnamename")){
+		exit("データベースを選択できなかった");
+	}
+	$query = "select * from user_t where username = '$username' and password = '$password'";
+	$result = mysql_query($query);
+	
+	if(mysql_num_rows($result) !== 0){
 		// 成功
 		
 		// セッションにログインしたことを残す
 		session_regenerate_id();
 		$_SESSION["username"] = $username;
+		
+		// ユーザIDでも残す
+		$row = mysql_fetch_array($result);
+		$_SESSION["userid"] = $row["userid"];
 		
 		// ログイン後のページに移動する
 		header("Location: http://localhost/folder/mypage.php");

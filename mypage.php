@@ -3,6 +3,9 @@
 session_start();
 $username = $_SESSION["username"];
 
+// データベースで「ログイン中のユーザ」のこと問い合わせるのに使う
+$userid = $_SESSION["userid"];
+
 ?>
 
 <!DOCTYPE html>
